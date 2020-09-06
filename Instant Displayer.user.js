@@ -143,7 +143,7 @@ edits.forEach((ele)=>{
                 document.addEventListener("keyup",(ele)=>{
                     if(ele.key=="Escape"){
                         document.getElementsByClassName("bigcontain2")[0].style.display="none";
-                        //location.reload();
+                        
                     }
                 });
             }
