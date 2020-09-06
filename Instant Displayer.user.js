@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Instant Profile & Unedited post Displayer
-// @version      0.1
+// @version      0.11
 // @description  Instantly displays user's profile on hover and unedited post history on click.
 // @author       Aveatrex
 // @include      https://bitcointalk.org/index.php?topic=*
@@ -22,6 +22,9 @@ inject.classList="bigcontain";
 inject.innerHTML = '<div class="hover_bkgr_fricc"> <span class="helper"></span> <div> <div class="popupCloseButton">&times;</div> <p id="profile">Add any HTML content<br />inside the popup box!</p> </div></div>';
 //get all anchor tags
 var anchs=Array.from(document.getElementsByTagName("a"));
+window.addEventListener("load",()=>{
+setTimeout(()=>{
+console.log("loaded");
 anchs.forEach((e)=>{
     //listen for mouse hovering on previously selected anchor tags
     e.addEventListener("mouseover",()=>{
@@ -60,13 +63,17 @@ anchs.forEach((e)=>{
                         if(document.getElementsByClassName("popupCloseButton")[0]!=undefined){
                             //if the user clicks on the "X" button, the popup closes
                             document.getElementsByClassName("popupCloseButton")[0].addEventListener("click",(ele)=>{
-                                document.getElementsByClassName("bigcontain")[0].style.display="none";
+                                if(document.getElementsByClassName("bigcontain")[0]!=undefined){
+                                    document.getElementsByClassName("bigcontain")[0].remove();
+                                }
                             });
                         }
                         document.addEventListener("keyup",(ele)=>{
                             //if the user clicks on the Escape key, the popup closes
                             if(ele.key=="Escape"){
-                                document.getElementsByClassName("bigcontain")[0].style.display="none";
+                                if(document.getElementsByClassName("bigcontain")[0]!=undefined){
+                                    document.getElementsByClassName("bigcontain")[0].remove();
+                                 }
                             }
                         });
                 };}
@@ -74,6 +81,7 @@ anchs.forEach((e)=>{
 
         }
     })});
+},3000)})
 ;
 //creates an html popup element to be injected in the page to display the profile
 var inject2= document.createElement("div");
@@ -82,7 +90,8 @@ inject2.innerHTML = '<div class="hover_bkgr_fricc2"> <span class="helper2"></spa
 
 //select all the elements that contain the time of edited posts
 var edits=Array.from(document.getElementsByClassName("edited"));
-
+window.addEventListener("load",()=>{
+setTimeout(()=>{
 edits.forEach((ele)=>{
     //listens for when the user clicks on the selected elements
     ele.addEventListener("click",()=>{
@@ -136,17 +145,22 @@ edits.forEach((ele)=>{
                 //if the user clicks on the "X" button, the popup closes
                 if(document.getElementsByClassName("popupCloseButton2")[0]!=undefined){
                     document.getElementsByClassName("popupCloseButton2")[0].addEventListener("click",(ele)=>{
-                        document.getElementsByClassName("bigcontain2")[0].style.display="none";
+                        if(document.getElementsByClassName("bigcontain2")[0]!=undefined){
+                            document.getElementsByClassName("bigcontain2")[0].remove();
+                        }
                     });
                 }
                 //if the user clicks on the "Escape" button, the popup closes
                 document.addEventListener("keyup",(ele)=>{
                     if(ele.key=="Escape"){
-                        document.getElementsByClassName("bigcontain2")[0].style.display="none";
-                        
+                        if(document.getElementsByClassName("bigcontain2")[0]!=undefined){
+                            document.getElementsByClassName("bigcontain2")[0].remove();
+                        }
+
                     }
                 });
             }
         }
     })
 })
+},3000)})
